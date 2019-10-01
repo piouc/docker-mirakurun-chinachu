@@ -39,20 +39,13 @@ RUN set -x \
 	# mirakurun
 	&& npm install mirakurun@latest -g --unsafe --production \
 	\
-	# recpt1
-	&& git clone https://github.com/stz2012/recpt1 /tmp/recpt1 \
-	&& cd /tmp/recpt1/recpt1 \
+	#recdvb
+	&& git clone https://github.com/qpe/recdvb /tmp/recdvb \
+	&& cd /tmp/redvb/ \
 	&& ./autogen.sh \
-	&& ./configure \
-	&& sed -i '/#include <sys\/msg.h>/d' recpt1core.h \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' recpt1.c \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' recpt1ctl.c \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' checksignal.c \
-	&& sed -i -E 's!(#include <ctype.h>)!\1\n#include <event.h>!' tssplitter_lite.c \
-	&& sed -i 's#-I../driver#-I../driver -I/usr/local/include#' Makefile \
+	&& ./configure --enable-b25 \
 	&& make \
 	&& make install \
-	\
 	# ccid
 	&& cd /tmp \
 	&& git clone --recursive https://salsa.debian.org/rousseau/CCID.git \
@@ -67,7 +60,7 @@ RUN set -x \
 	&& npm cache verify \
 	&& apk del --purge .build-deps \
 	#&& rm -rf /tmp/* \
-	&& rm -rf /tmp/recpt1 \
+	&& rm -rf /tmp/recdvb \
 	&& rm -rf /tmp/ccid-* \
 	&& rm -rf /var/cache/apk/*
 
