@@ -19,7 +19,7 @@ RUN set -x \
 	&& git clone https://github.com/stz2012/libarib25 /tmp/libarib25 \
 	&& mkdir /tmp/libarib25/build \
 	&& cd /tmp/libarib25/build \
-	&& cmake \
+	&& cmake .. \
 	&& make \
 	&& make install \
 	#recdvb
