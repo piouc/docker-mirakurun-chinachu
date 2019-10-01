@@ -32,6 +32,7 @@ RUN set -x \
 		libtool\
 		flex\
 	\
+	&& npm config set unsafe-perm true \
 	&& npm install pm2 -g \
 	\
 	&& npm install arib-b25-stream-test -g --unsafe \
