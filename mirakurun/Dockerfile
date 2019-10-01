@@ -42,7 +42,7 @@ RUN set -x \
 	\
 	#recdvb
 	&& git clone https://github.com/qpe/recdvb /tmp/recdvb \
-	&& cd /tmp/redvb/ \
+	&& cd /tmp/recdvb/ \
 	&& ./autogen.sh \
 	&& ./configure --enable-b25 \
 	&& make \
