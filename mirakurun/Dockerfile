@@ -2,72 +2,39 @@ FROM node:10-alpine
 LABEL maintainer "h-mineta <h-mineta@0nyx.net>"
 
 ENV DOCKER="YES"
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64
 
 RUN set -x \
-	&& apk upgrade --update \
-	&& apk add \
-		bash \
-		coreutils \
-		libusb \
-		pcsc-lite \
-		pcsc-lite-libs \
-		curl \
-		ca-certificates \
-		util-linux \
-	\
-	&& apk add --virtual .build-deps \
-		git \
-		make \
-		gcc \
-		g++ \
-		gzip \
-		autoconf \
-		automake \
-		libc-dev \
-		musl-dev \
-		eudev-dev \
-		libevent-dev \
-		pcsc-lite-dev \
-		libusb-dev \
-		libtool\
-		flex\
-	\
+  && apk upgrade --update \
+	&& apk add bash coreutils libusb pcsc-lite pcsc-lite-libs curl ca-certificates util-linux \
+	&& apk add --virtual .build-deps git make cmake gcc g++ gzip autoconf automake libc-dev musl-dev eudev-dev libevent-dev pcsc-lite-dev libusb-dev libtool flex linux-headers \
+
+	&& npm config set unsafe-perm true \
 	&& npm install pm2 -g \
-	\
 	&& npm install arib-b25-stream-test -g --unsafe \
-	\
 	# mirakurun
-	&& npm install mirakurun@latest -g --unsafe --production \
-	\
-	# recpt1
-	&& git clone https://github.com/stz2012/recpt1 /tmp/recpt1 \
-	&& cd /tmp/recpt1/recpt1 \
+	&& npm install mirakurun@latest -g --unsafe --production\
+	#recdvb
+	; git clone https://github.com/piouc/recdvb2 /tmp/recdvb \
+	&& cd /tmp/recdvb/ \
 	&& ./autogen.sh \
-	&& ./configure \
-	&& sed -i '/#include <sys\/msg.h>/d' recpt1core.h \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' recpt1.c \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' recpt1ctl.c \
-	&& sed -i -E 's!(#include <sys/msg.h>)!#undef _GNU_SOURCE\n#undef _BSD_SOURCE\n\1!' checksignal.c \
-	&& sed -i -E 's!(#include <ctype.h>)!\1\n#include <event.h>!' tssplitter_lite.c \
-	&& sed -i 's#-I../driver#-I../driver -I/usr/local/include#' Makefile \
+	&& ./configure\
 	&& make \
 	&& make install \
-	\
 	# ccid
-	&& cd /tmp \
-	&& git clone --recursive https://salsa.debian.org/rousseau/CCID.git \
-	&& cd CCID \
+	&& git clone --recursive https://salsa.debian.org/rousseau/CCID.git /tmp/CCID \
+	&& cd /tmp/CCID \
 	&& ./bootstrap \
 	&& ./configure \
 	&& make \
 	&& make install \
-	\
 	# cleaning
 	&& cd / \
 	&& npm cache verify \
 	&& apk del --purge .build-deps \
 	#&& rm -rf /tmp/* \
-	&& rm -rf /tmp/recpt1 \
+	&& rm -rf /tmp/libarib25 \
+	&& rm -rf /tmp/recdvb \
 	&& rm -rf /tmp/ccid-* \
 	&& rm -rf /var/cache/apk/*
 
