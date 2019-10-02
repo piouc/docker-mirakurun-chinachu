@@ -2,11 +2,12 @@ FROM node:10-alpine
 LABEL maintainer "h-mineta <h-mineta@0nyx.net>"
 
 ENV DOCKER="YES"
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64
 
 RUN set -x
 RUN apk upgrade --update \
 	&& apk add bash coreutils libusb pcsc-lite pcsc-lite-libs curl ca-certificates util-linux \
-	&& apk add --virtual .build-deps git make cmake gcc g++ gzip autoconf automake libc-dev musl-dev eudev-dev libevent-dev pcsc-lite-dev libusb-dev libtool flex linux-headers build-base
+	&& apk add --virtual .build-deps git make cmake gcc g++ gzip autoconf automake libc-dev musl-dev eudev-dev libevent-dev pcsc-lite-dev libusb-dev libtool flex linux-headers
 
 RUN npm config set unsafe-perm true \
 	&& npm install pm2 -g \
@@ -19,15 +20,14 @@ RUN git clone https://github.com/stz2012/libarib25 /tmp/libarib25 \
 	&& cd /tmp/libarib25/build \
 	&& cmake .. \
 	&& make \
-	&& make install \
-	&& ldconfig
+	&& make install; exit 0 
 	#recdvb
 RUN git clone https://github.com/piouc/recdvb /tmp/recdvb \
 	&& cd /tmp/recdvb/ \
 	&& ./autogen.sh \
 	&& ./configure --enable-b25 \
 	&& make \
-	&& make install
+	&& make install 
 	# ccid
 RUN git clone --recursive https://salsa.debian.org/rousseau/CCID.git /tmp/CCID \
 	&& cd /tmp/CCID \
@@ -36,7 +36,7 @@ RUN git clone --recursive https://salsa.debian.org/rousseau/CCID.git /tmp/CCID \
 	&& make \
 	&& make install
 	# cleaning
-RUn  cd / \
+RUN  cd / \
 	&& npm cache verify \
 	&& apk del --purge .build-deps \
 	#&& rm -rf /tmp/* \
