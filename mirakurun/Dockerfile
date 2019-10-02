@@ -6,7 +6,7 @@ ENV DOCKER="YES"
 RUN set -x
 RUN apk upgrade --update \
 	&& apk add bash coreutils libusb pcsc-lite pcsc-lite-libs curl ca-certificates util-linux \
-	&& apk add --virtual .build-deps git make cmake gcc g++ gzip autoconf automake libc-dev musl-dev eudev-dev libevent-dev pcsc-lite-dev libusb-dev libtool flex linux-headers
+	&& apk add --virtual .build-deps git make cmake gcc g++ gzip autoconf automake libc-dev musl-dev eudev-dev libevent-dev pcsc-lite-dev libusb-dev libtool flex linux-headers build-essential
 
 RUN npm config set unsafe-perm true \
 	&& npm install pm2 -g \
