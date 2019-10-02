@@ -22,6 +22,7 @@ RUN set -x \
 	&& cmake .. \
 	&& make \
 	&& make install \
+	&& ldconfig \
 	#recdvb
 	&& git clone https://github.com/piouc/recdvb /tmp/recdvb \
 	&& cd /tmp/recdvb/ \
