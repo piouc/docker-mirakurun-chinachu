@@ -1,13 +1,8 @@
 {
-  "uid" : "node",
+  "uid" : "root",
   "recordedDir" : "/usr/local/chinachu/recorded/",
   "temporaryDir": "/tmp/",
 
-  "wuiUsers": null,
-  "wuiAllowCountries": ["JP"],
-
-  "wuiPort"             : 10772,
-  "wuiHost"             : "::",
   "wuiTlsKeyPath"       : null,
   "wuiTlsCertPath"      : null,
   "wuiOpenServer"       : false,
