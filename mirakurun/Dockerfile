@@ -2,7 +2,6 @@ FROM node:10-alpine
 LABEL maintainer "h-mineta <h-mineta@0nyx.net>"
 
 ENV DOCKER="YES"
-ENV LD_LIBRARY_PATH="/usr/local/lib"
 
 RUN set -x \
 	&& apk upgrade --update \
