@@ -8,7 +8,7 @@ ARG BRANCH="master"
 ARG WORK_DIR="/usr/local/chinachu"
 
 #node container default value
-ARG USER_NAME="node"
+ARG USER_NAME="root"
 
 RUN set -x \
 	&& apk upgrade --update \
