@@ -16,7 +16,7 @@ services:
     build:
         context: chinachu
         args:
-         - REPOSITORY=git://github.com/Chinachu/Chinachu.git
+         - REPOSITORY=git://github.com/piouc/Chinachu.git
          - BRANCH=gamma
     container_name: chinachu
     ports:
@@ -29,5 +29,3 @@ services:
      - ./chinachu/conf/rules.json:/usr/local/chinachu/rules.json
      - ./chinachu/data:/usr/local/chinachu/data
      - ./recorded:/usr/local/chinachu/recorded
-    links:
-     - mirakurun:container-mirakurun
