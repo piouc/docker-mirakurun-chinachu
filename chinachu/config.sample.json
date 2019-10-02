@@ -5,7 +5,7 @@
 
   "wuiTlsKeyPath"       : null,
   "wuiTlsCertPath"      : null,
-  "wuiOpenServer"       : false,
+  "wuiOpenServer"       : true,
   "wuiOpenPort"         : 20772,
   "wuiXFF"              : false,
   "wuiPreviewer"        : true,
