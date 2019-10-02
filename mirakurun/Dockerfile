@@ -20,9 +20,9 @@ RUN set -x \
 	&& cd /tmp/libarib25/build \
 	&& cmake .. \
 	&& make \
-	&& make install; exit 0 \
+	&& make install \
 	#recdvb
-	&& git clone https://github.com/piouc/recdvb /tmp/recdvb \
+	; git clone https://github.com/piouc/recdvb /tmp/recdvb \
 	&& cd /tmp/recdvb/ \
 	&& ./autogen.sh \
 	&& ./configure --enable-b25 \
