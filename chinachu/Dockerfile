@@ -2,13 +2,13 @@ FROM node:10-alpine
 LABEL maintainer "h-mineta <h-mineta@0nyx.net>"
 
 ENV DOCKER="YES"
-ARG REPOSITORY="git://github.com/piouc/Chinachu.git"
+ARG REPOSITORY="git://github.com/Chinachu/Chinachu.git"
 ARG BRANCH="master"
 
 ARG WORK_DIR="/usr/local/chinachu"
 
 #node container default value
-ARG USER_NAME="root"
+ARG USER_NAME="node"
 
 RUN set -x \
 	&& apk upgrade --update \
