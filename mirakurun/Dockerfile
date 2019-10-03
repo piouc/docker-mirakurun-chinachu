@@ -14,18 +14,11 @@ RUN set -x \
 	&& npm install arib-b25-stream-test -g --unsafe \
 	# mirakurun
 	&& npm install mirakurun@latest -g --unsafe --production\
-	#libarib25
-	&& git clone https://github.com/stz2012/libarib25 /tmp/libarib25 \
-	&& mkdir /tmp/libarib25/build \
-	&& cd /tmp/libarib25/build \
-	&& cmake .. \
-	&& make \
-	&& make install \
 	#recdvb
-	; git clone https://github.com/piouc/recdvb /tmp/recdvb \
+	; git clone https://github.com/piouc/recdvb2 /tmp/recdvb \
 	&& cd /tmp/recdvb/ \
 	&& ./autogen.sh \
-	&& ./configure --enable-b25 \
+	&& ./configure\
 	&& make \
 	&& make install \
 	# ccid
