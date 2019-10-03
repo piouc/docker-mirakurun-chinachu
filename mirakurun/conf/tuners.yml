@@ -1,4 +1,5 @@
 - name: PX-S1UD-1
   types:
     - GR
-  command: recdvb --b25 <channel> - -
+  command: recdvb <channel> - -
+  decoder: arib-b25-stream-test
