@@ -1,4 +1,4 @@
 - name: PX-S1UD-1
   types:
     - GR
-  command: recdvb --b25 --strip <channel> - -
+  command: recdvb --b25 <channel> - -
