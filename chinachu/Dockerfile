@@ -18,6 +18,9 @@ RUN set -x \
 		curl \
 		procps \
 		ca-certificates \
+		ffmpeg-libs \
+		musl \
+		sdl2 \
 	\
 	&& apk add --virtual .build-deps \
 		git \
@@ -49,8 +52,8 @@ RUN set -x \
 		--enable-avfilter \
 		--enable-gnutls \
 		--enable-gpl \
+		--enable-libass \
 		--enable-libmp3lame \
-		--enable-librtmp \
 		--enable-libvorbis \
 		--enable-libvpx \
 		--enable-libxvid \
@@ -66,7 +69,9 @@ RUN set -x \
 		--disable-stripping \
 		--disable-static \
 		--disable-debug \
+		--disable-librtmp \
 		--enable-vaapi \
+		--enable-vdpau \
 		--enable-libopus \
 		--enable-omx \
 		--enable-omx-rpi \
