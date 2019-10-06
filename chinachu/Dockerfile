@@ -39,7 +39,7 @@ RUN set -x \
 	\
 	# install omx enabled ffmpeg
 	&& git clone https://git.ffmpeg.org/ffmpeg.git --branch release/4.2 --depth 1 /tmp/ffmpeg\
-	&& d /tmp/ffmpeg \
+	&& cd /tmp/ffmpeg \
 	&& env CFLAGS="-I/opt/vc/include/IL" ./configure \
 		--prefix=/usr \
 		--enable-avresample \
