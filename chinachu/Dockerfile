@@ -35,13 +35,50 @@ RUN set -x \
 		musl-dev \
 		eudev-dev \
 		libevent-dev \
+		gnutls-dev lame-dev libvorbis-dev xvidcore-dev zlib-dev libvdpau-dev imlib2-dev x264-dev libtheora-dev coreutils bzip2-dev perl-dev libvpx-dev sdl2-dev libxfixes-dev libva-dev alsa-lib-dev v4l-utils-dev yasm opus-dev x265-dev libass-dev \
 	\
+	# install omx enabled ffmpeg
+	&& git clone https://git.ffmpeg.org/ffmpeg.git --branch release/4.2 --depth 1 /tmp/ffmpeg\
+	&& cd /tmp/ffmpeg \
+	&& env CFLAGS="-I/opt/vc/include/IL" ./configure \
+		--prefix=/usr \
+		--enable-avresample \
+		--enable-avfilter \
+		--enable-gnutls \
+		--enable-gpl \
+		--enable-libmp3lame \
+		--enable-librtmp \
+		--enable-libvorbis \
+		--enable-libvpx \
+		--enable-libxvid \
+		--enable-libx264 \
+		--enable-libx265 \
+		--enable-libtheora \
+		--enable-libv4l2 \
+		--enable-postproc \
+		--enable-pic \
+		--enable-pthreads \
+		--enable-shared \
+		--enable-libxcb \
+		--disable-stripping \
+		--disable-static \
+		--disable-debug \
+		--enable-vaapi \
+		--enable-libopus \
+		--enable-omx \
+		--enable-omx-rpi \
+	&& make -j4 \
+	&& make install \
+	# install chinachu
 	&& mkdir -p ${WORK_DIR} \
 	&& git clone ${REPOSITORY} ${WORK_DIR} \
 	&& chown -R ${USER_NAME} ${WORK_DIR} \
 	&& cd ${WORK_DIR} \
 	&& git checkout ${BRANCH} \
-	&& echo 1 | sudo -u ${USER_NAME} ./chinachu installer \
+	#install git sumbodules
+	&& echo 2 | sudo -u ${USER_NAME} ./chinachu installer \
+	#install npm modules
+	&& echo 4 | sudo -u ${USER_NAME} ./chinachu installer \
 	&& sudo -u ${USER_NAME} ./chinachu service operator initscript | tee /tmp/chinachu-operator \
 	&& sudo -u ${USER_NAME} ./chinachu service wui initscript | tee /tmp/chinachu-wui \
 	&& sudo -u ${USER_NAME} mkdir log \
@@ -55,7 +92,7 @@ RUN set -x \
 	&& cd / \
 	&& npm cache verify \
 	&& apk del --purge .build-deps \
-	#&& rm -rf /tmp/* \
+	&& rm -rf /tmp/ffmpeg \
 	&& rm -rf /var/cache/apk/*
 
 	# forward request and error logs to docker log collector
