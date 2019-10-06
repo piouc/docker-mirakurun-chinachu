@@ -41,7 +41,7 @@ RUN set -x \
 		build-base \
 		coreutils \
 		rtmpdump-dev \
-		gnutls-dev lame-dev libvorbis-dev xvidcore-dev zlib-dev imlib2-dev x264-dev libtheora-dev coreutils bzip2-dev perl libvpx-dev libvpx-dev sdl-dev libxfixes-dev libva-dev alsa-lib-dev rtmpdump-dev v4l-utils-dev yasm opus-dev x265-dev raspberrypi-dev \
+		gnutls-dev lame-dev libvorbis-dev xvidcore-dev zlib-dev libvdpau-dev imlib2-dev x264-dev libtheora-dev coreutils bzip2-dev perl-dev libvpx-dev sdl2-dev libxfixes-dev libva-dev alsa-lib-dev v4l-utils-dev yasm opus-dev x265-dev libass-dev raspberrypi-dev \
 	\
 	# install omx enabled ffmpeg
 	&& git clone https://git.ffmpeg.org/ffmpeg.git --branch release/4.2 --depth 1 /tmp/ffmpeg\
