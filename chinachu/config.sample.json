@@ -18,5 +18,6 @@
 
   "recordedFormat": "[<date:yymmdd-HHMM>][<type><channel>][<tuner>]<title>.m2ts",
 
-  "storageLowSpaceAction": "remove"
+  "storageLowSpaceAction": "remove",
+  "omxEnabled": true
 }

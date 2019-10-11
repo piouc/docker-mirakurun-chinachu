@@ -19,10 +19,10 @@ services:
          - REPOSITORY=git://github.com/piouc/Chinachu.git
          - BRANCH=gamma
     container_name: chinachu
+    privileged: true
     ports:
      - "10772:10772"
      - "20772:20772"
-     - "5353:5353/udp"
     volumes:
      - /etc/localtime:/etc/localtime:ro
      - ./chinachu/conf/config.json:/usr/local/chinachu/config.json
