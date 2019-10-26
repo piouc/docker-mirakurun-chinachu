@@ -19,6 +19,7 @@ RUN set -x \
 		procps \
 		ca-certificates \
 		ffmpeg-libs \
+		raspberrypi-libs \
 	\
 	&& apk add --virtual .build-deps \
 		git \
@@ -42,10 +43,6 @@ RUN set -x \
 		linux-headers \
 		gnutls-dev lame-dev libvorbis-dev xvidcore-dev zlib-dev libvdpau-dev imlib2-dev x264-dev libtheora-dev coreutils bzip2-dev perl-dev libvpx-dev sdl2-dev libxfixes-dev libva-dev alsa-lib-dev v4l-utils-dev yasm opus-dev x265-dev libass-dev raspberrypi-dev\
 	\
-	# install raspberry pi userland
-	&& git clone https://github.com/raspberrypi/userland --depth1 /tmp/raspberrypi-userland \
-	&& cd /tmp/raspberrypi-userland \
-	&& ./buildme --aarch64 \
 	# install omx enabled ffmpeg
 	&& git clone https://git.ffmpeg.org/ffmpeg.git --branch release/4.2 --depth 1 /tmp/ffmpeg\
 	&& cd /tmp/ffmpeg \
